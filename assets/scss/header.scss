@@ -1,0 +1,56 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background-color: dodgerblue;
+  color: white;
+  height: 80px;
+  box-sizing: border-box;
+}
+
+.brand {
+
+  a {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.2rem;
+    font-family: sans-serif;
+    text-decoration: none;
+    color: white;
+  }
+}
+
+.header-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+
+  a, p {
+    text-decoration: none;
+    color: white;
+    transition: 0.2s cubic-bezier(.3, .29, .34, .34);
+    border-bottom: 1px solid transparent;
+    font-family: sans-serif;
+    margin: 0 8px;
+  }
+
+  p {
+    font-weight: bold;
+  }
+
+  a {
+    border: 1px solid white;
+    padding: 8px 16px;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: white;
+      color: dodgerblue;
+      font-weight: bold;
+    }
+  }
+
+}

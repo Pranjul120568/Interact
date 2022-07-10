@@ -1,0 +1,12 @@
+<header>
+    <span class="brand"><a href="/">codeial</a></span>
+    <div class="header-links">
+        <% if(locals.user) { %>
+            <p><%= user.name %></p>
+            <a href="/users/signOut">Sign Out</a>
+        <% }else { %>
+            <a href="/users/login">Login</a>
+            <a href="/users/signup">Register</a>
+        <% } %>
+    </div>
+</header>

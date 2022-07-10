@@ -1,0 +1,61 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<link rel="stylesheet" href="/css/home.css">
+<%- include("chat_box") %>
+<main class="home-container">
+    <section class="bg-home">
+        <section class="main-home">
+            <% if(locals.user) { %>
+                <section class="posts">
+                    <form action="/posts/create" method="post" id="posts-form">
+                        <textarea name="content" placeholder="Type Here..." required></textarea>
+                        <input type="submit" value="Post">
+                    </form>
+                </section>
+            <% } %>
+            <section class="all-posts">
+                <ul>
+                    <% for(post of posts){ %>
+                        <%- include("_post.ejs") %>
+                    <% } %>
+                </ul>
+            </section>
+        </section>
+    </section>
+
+
+    <aside class="user-friends">
+        <h4>Friends</h4>
+        <ul class="friends-list">
+            <% for(u of all_users) { %>
+                <li>
+                    <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+                </li>
+            <% } %>
+        </ul>
+    </aside>
+</main>
+<script src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+        integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+        crossorigin="anonymous"></script>
+<script src="/js/chat_engine.js"></script>
+<% if (locals.user){ %>
+    <script>
+        let chatEngine = new ChatEngine('user-chat-box', '<%= locals.user.email %>')
+        document.addEventListener("keydown", (e) => {
+            if (e.keyCode === 13 || e.key === "Enter") {
+                let inputField = $('#chat-message-input')
+                let msg = inputField.val();
+
+                if (msg != '') {
+                    chatEngine.socket.emit('send_message', {
+                        message: msg,
+                        user_email: chatEngine.userEmail,
+                        chatroom: 'codeial'
+                    });
+                }
+                inputField.val("")
+            }
+        })
+    </script>
+<% } %>
